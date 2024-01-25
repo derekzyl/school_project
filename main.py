@@ -152,19 +152,19 @@ async def convertToFhir(file:UploadFile):
 
     converter = create_fhir_bundle(json_data=json_data)
 
-    return Response(content=converter)
+    return converter
    
 @app.post("/converter/convert-from-fhir")
 async def convertToJson(file:UploadFile):
     fi = file.file
-    json_data:list[dict[str,Any]]= json.load(fi)
+    json_data:dict[str,Any]= json.load(fi)
 
-    converter = create_fhir_bundle(json_data=json_data)
+    converter = reverse_fhir_bundle(fhir_bundle=json_data)
 
-    return Response(content=converter)
+    return converter
  
        
-@app.post("/converter/convert-from-fhir")
+@app.post("/converter/convert-from-fhir-local")
 async def convertToLocalDataToFhir():
     fi = "./assets/covid.json"
     with open(file=fi, mode="r") as file:
