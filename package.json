@@ -1,0 +1,24 @@
+{
+  "name": "ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "backend": "uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "start": "concurrently \"pnpm backend\" \"pnpm dev\"",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
+  },
+  "dependencies": {
+    "@types/d3": "^7.4.3",
+    "@types/d3-simple-slider": "^1.5.6",
+    "concurrently": "^8.2.2",
+    "d3": "^7.8.5",
+    "d3-simple-slider": "^2.0.0"
+  }
+}

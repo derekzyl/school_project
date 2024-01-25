@@ -1,0 +1,21 @@
+   .bar {
+     cursor: pointer;
+     opacity: 0.7;
+   }
+
+   .bar:hover {
+     opacity: 1;
+   }
+
+   axis text,
+   .slider text {
+     font-size: 18px;
+   }
+
+   .axis text {
+     fill: red;
+   }
+
+   .slider text {
+     fill: green;
+   }
