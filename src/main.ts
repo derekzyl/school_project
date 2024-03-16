@@ -65,6 +65,12 @@ d3.json("http://localhost:8000/get-file").then((json: any) => {
     .attr("class", "bottom-axis")
     .attr("transform", "translate(0, 400)");
 
+  /**
+   * The function updates the bottom axis of a chart with data from an array of CovidData objects.
+   * @param {CovidData[]} data - The `data` parameter is an array of objects representing Covid data.
+   * Each object in the array should have a property called `countriesAndTerritories` which represents
+   * the name of a country or territory.
+   */
   function updateBottomAxis(data: CovidData[]) {
     const countries = Array.from(
       new Set(data.map((d) => d.countriesAndTerritories))
@@ -81,7 +87,7 @@ d3.json("http://localhost:8000/get-file").then((json: any) => {
     bottomAxis
       .selectAll(".tick text")
       .data(countries)
-      .text((d) => d)
+      .text("")
       .attr(
         "transform",
         (d) =>
@@ -190,21 +196,33 @@ d3.json("http://localhost:8000/get-file").then((json: any) => {
     .attr("transform", "translate(0,0)");
 
   // Function to show details on hover
-  function showDetails(dx) {
-    // console.log(d.target.__data__, "inside gjere");
-    // console.log(d3.event.target.__data__, "inside d3 gjere");
-    const d = dx.target.__data__;
-    // Create tooltip text
+  // function showDetails(dx) {
+  //   // console.log(d.target.__data__, "inside gjere");
+  //   // console.log(d3.event.target.__data__, "inside d3 gjere");
+  //   const d = dx.target.__data__;
+  //   // Create tooltip text
 
+  //   const tooltipText = `${d.countriesAndTerritories}: Cases - ${d.cases}, Deaths - ${d.deaths}`;
+  //   // Display tooltip
+  //   tooltip.transition().duration(200).style("opacity", 0.9);
+  //   tooltip
+  //     .html(tooltipText)
+  //     .style("left", dx.event.pageX + 40 + "px")
+  //     .style("top", dx.event.pageY - 28 + "px");
+  // }
+
+  function showDetails(dx) {
+    const d = dx.target.__data__;
     const tooltipText = `${d.countriesAndTerritories}: Cases - ${d.cases}, Deaths - ${d.deaths}`;
-    // Display tooltip
+    console.log(dx.pageY, "inside gjere");
+    console.log(dx.pageX, "inside d3 gjere");
+    // Display tooltip below the slider
     tooltip.transition().duration(200).style("opacity", 0.9);
     tooltip
       .html(tooltipText)
-      .style("left", dx.event.pageX + "px")
-      .style("top", dx.event.pageY - 28 + "px");
+      .style("left", dx.pageX + "px")
+      .style("top", dx.pageY - 200 + "px"); // Adjust the top position as needed
   }
-
   /**
    * The function updates the vertical axis of a chart based on the maximum number of cases in the
    * provided data.
